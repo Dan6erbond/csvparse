@@ -1,3 +1,9 @@
+## v0.3.1 (2024-08-11)
+
+### Fix
+
+- :bug: only return error if target count is greater than row count
+
 ## v0.3.0 (2024-08-11)
 
 ### Feat
