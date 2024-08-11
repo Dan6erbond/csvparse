@@ -57,3 +57,27 @@ Ken,Thompson,ken
 
 	// Output: Rob Pike rob
 }
+
+func TestScanReader_Scan_WithTooManyTargets(t *testing.T) {
+	in := `first_name,last_name,username
+"Rob","Pike",rob
+Ken,Thompson,ken
+"Robert","Griesemer","gri"
+`
+	r := csv.NewReader(strings.NewReader(in))
+
+	sr := csvparse.NewScanReader(r, csvparse.WithHeaderRow)
+
+	var (
+		fn string
+		ln string
+		un string
+		pw string
+	)
+
+	err := sr.Scan(&fn, &ln, &un, &pw)
+
+	if assert.Error(t, err) {
+		assert.Equal(t, csvparse.ErrRowCountIsSmallerThanTargetCount, err)
+	}
+}

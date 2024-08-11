@@ -35,7 +35,7 @@ func (sr *ScanReader) Scan(tgts ...*string) error {
 		return err
 	}
 
-	if len(row) != len(tgts) {
+	if len(row) < len(tgts) {
 		return ErrRowCountIsSmallerThanTargetCount
 	}
 
